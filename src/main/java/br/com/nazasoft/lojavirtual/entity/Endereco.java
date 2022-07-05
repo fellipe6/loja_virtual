@@ -1,7 +1,6 @@
 package br.com.nazasoft.lojavirtual.entity;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
