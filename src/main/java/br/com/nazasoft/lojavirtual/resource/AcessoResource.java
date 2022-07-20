@@ -1,20 +1,39 @@
 package br.com.nazasoft.lojavirtual.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nazasoft.lojavirtual.entity.Acesso;
+import br.com.nazasoft.lojavirtual.repository.AcessoRepository;
 import br.com.nazasoft.lojavirtual.service.AcessoService;
 
 @Controller
+@RestController
 public class AcessoResource {
 
 	@Autowired
 	private AcessoService acessoService;
 	
-	@PostMapping("/salvarAcesso")
-	public Acesso salvarAcesso(Acesso acesso) {
-		return acessoService.save(acesso);
+	@Autowired
+	private AcessoRepository acessoRepository;
+	
+	@ResponseBody	
+	@PostMapping(value ="/salvarAcesso")
+	public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) {
+		Acesso acessoSalvo = acessoService.save(acesso);
+		return new ResponseEntity<Acesso>(acessoSalvo,HttpStatus.OK);
+	}
+	
+	@ResponseBody	
+	@PostMapping(value ="/deletaAcesso")
+	public ResponseEntity<?> deleteAcesso(@RequestBody Acesso acesso) {
+	    acessoRepository.deleteById(acesso.getId());
+		return new ResponseEntity("Acesso removido com sucesso!",HttpStatus.OK);
 	}
 }
