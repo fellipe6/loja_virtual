@@ -13,7 +13,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @SequenceGenerator(name = "seq_usuario",sequenceName = "seq_usuario",allocationSize = 1,initialValue = 1)
 public class Usuario implements UserDetails {
-
+ //Todo Verificar a classe usuário ao implementar o spring security
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_usuario")
     private Long id;
