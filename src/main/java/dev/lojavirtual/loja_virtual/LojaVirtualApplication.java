@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EntityScan(basePackages = "dev.lojavirtual.loja_virtual.model")
-@ComponentScan("dev.lojavirtual.loja_virtual*")
+@ComponentScan(basePackages = "dev.*")
 @EnableJpaRepositories(basePackages = {"dev.lojavirtual.loja_virtual.repository"})
 @EnableTransactionManagement
 public class LojaVirtualApplication {
