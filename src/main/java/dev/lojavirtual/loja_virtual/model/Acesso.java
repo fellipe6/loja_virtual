@@ -1,5 +1,7 @@
 package dev.lojavirtual.loja_virtual.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -9,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "acesso")
 @SequenceGenerator(name = "seq_acesso", sequenceName = "seq_acesso", initialValue = 1, allocationSize = 1)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Acesso implements GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
@@ -20,6 +23,7 @@ public class Acesso implements GrantedAuthority {
     @Column(nullable = false)
     private String descricao; /* Acesso ex: ROLE_ADMIN ou ROLE_SECRETARIO */
 
+    @JsonIgnore
     @Override
     public String getAuthority() {
         return this.descricao;

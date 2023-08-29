@@ -1,9 +1,84 @@
-CREATE DATABASE loja_virtual WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+--
+-- PostgreSQL database cluster dump
+--
+
+SET default_transaction_read_only = off;
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+
+--
+-- Drop databases (except postgres and template1)
+--
+
+DROP DATABASE lojavirtual;
 
 
-ALTER DATABASE loja_virtual OWNER TO postgres;
 
-\connect loja_virtual
+
+--
+-- Drop roles
+--
+
+DROP ROLE postgres;
+
+
+--
+-- Roles
+--
+
+CREATE ROLE postgres;
+ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:larNkYCZ/JQh3heopFHnbQ==$NbG/SbWyLXnFi1//L9gzJbcVUUjdn7QbbAPICvFJdnM=:ruVhQYifQZjwT6x7J/jcEIKVZp6mhiWCXR8TsGXot+A=';
+
+--
+-- User Configurations
+--
+
+
+
+
+
+
+
+
+--
+-- Databases
+--
+
+--
+-- Database "template1" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.3 (Debian 15.3-1.pgdg110+1)
+-- Dumped by pg_dump version 15.3 (Debian 15.3-1.pgdg110+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+UPDATE pg_catalog.pg_database SET datistemplate = false WHERE datname = 'template1';
+DROP DATABASE template1;
+--
+-- Name: template1; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+
+
+ALTER DATABASE template1 OWNER TO postgres;
+
+\connect template1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17,54 +92,87 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: validachavepessoa(); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: DATABASE template1; Type: COMMENT; Schema: -; Owner: postgres
 --
 
-CREATE FUNCTION public.validachavepessoa() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
+COMMENT ON DATABASE template1 IS 'default template for new databases';
 
-  declare existe integer;
-
-  begin
-    existe = (select count(1) from pessoa_fisica where id = NEW.pessoa_id);
-    if(existe <=0 ) then
-     existe = (select count(1) from pessoa_juridica where id = NEW.pessoa_id);
-    if (existe <= 0) then
-      raise exception 'N├úo foi encontrado o ID ou PK da pessoa para realizar a associa├º├úo';
-     end if;
-    end if;
-    RETURN NEW;
-  end;
-  $$;
-
-
-ALTER FUNCTION public.validachavepessoa() OWNER TO postgres;
 
 --
--- Name: validachavepessoa2(); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: template1; Type: DATABASE PROPERTIES; Schema: -; Owner: postgres
 --
 
-CREATE FUNCTION public.validachavepessoa2() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-
-  declare existe integer;
-
-  begin
-    existe = (select count(1) from pessoa_fisica where id = NEW.pessoa_forn_id);
-    if(existe <=0 ) then
-     existe = (select count(1) from pessoa_juridica where id = NEW.pessoa_forn_id);
-    if (existe <= 0) then
-      raise exception 'N├úo foi encontrado o ID ou PK da pessoa para realizar a associa├º├úo';
-     end if;
-    end if;
-    RETURN NEW;
-  end;
-  $$;
+ALTER DATABASE template1 IS_TEMPLATE = true;
 
 
-ALTER FUNCTION public.validachavepessoa2() OWNER TO postgres;
+\connect template1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: DATABASE template1; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE CONNECT,TEMPORARY ON DATABASE template1 FROM PUBLIC;
+GRANT CONNECT ON DATABASE template1 TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "lojavirtual" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.3 (Debian 15.3-1.pgdg110+1)
+-- Dumped by pg_dump version 15.3 (Debian 15.3-1.pgdg110+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: lojavirtual; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE lojavirtual WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+
+
+ALTER DATABASE lojavirtual OWNER TO postgres;
+
+\connect lojavirtual
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
 
 SET default_tablespace = '';
 
@@ -180,6 +288,26 @@ CREATE TABLE public.endereco (
 
 
 ALTER TABLE public.endereco OWNER TO postgres;
+
+--
+-- Name: flyway_schema_history; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.flyway_schema_history (
+    installed_rank integer NOT NULL,
+    version character varying(50),
+    description character varying(200) NOT NULL,
+    type character varying(20) NOT NULL,
+    script character varying(1000) NOT NULL,
+    checksum integer,
+    installed_by character varying(100) NOT NULL,
+    installed_on timestamp without time zone DEFAULT now() NOT NULL,
+    execution_time integer NOT NULL,
+    success boolean NOT NULL
+);
+
+
+ALTER TABLE public.flyway_schema_history OWNER TO postgres;
 
 --
 -- Name: forma_pagamento; Type: TABLE; Schema: public; Owner: postgres
@@ -683,10 +811,37 @@ ALTER TABLE public.vd_cp_loja_virt OWNER TO postgres;
 
 COPY public.acesso (id, descricao) FROM stdin;
 1	ROLE_ADMIN
-2	ROLE_ADMIN
-4	ROLE_TESTEPOSTMAN
-7	ROLE_TESTE
-8	ROLE_TESTE
+2	ROLE_CLIENT
+3	ROLE_ADM
+4	ROLE_SUPER
+5	ROLE_TESTER
+6	ROLE_TESTER
+7	ROLE_TESTER
+9	ROLE_TESTER3
+10	ROLE_TESTER3
+11	ROLE_TESTER3
+12	ROLE_TESTER3
+15	ROLE_ADMIN
+21	ROLE_COMPRADOR
+22	ROLE_COMPRADOR
+23	ROLE_COMPRADOR
+24	ROLE_COMPRADOR
+25	ROLE_COMPRADOR
+26	ROLE_COMPRADOR
+27	ROLE_COMPRADOR
+28	ROLE_COMPRADOR
+29	ROLE_COMPRADOR
+30	ROLE_COMPRADOR
+31	ROLE_COMPRADOR
+32	ROLE_COMPRADOR
+33	ROLE_COMPRADOR
+34	ROLE_COMPRADOR
+35	ROLE_COMPRADOR
+36	ROLE_COMPRADOR
+37	ROLE_COMPRADOR
+38	ROLE_COMPRADOR
+39	ROLE_ADMIN
+40	ROLE_ADMIN
 \.
 
 
@@ -695,7 +850,6 @@ COPY public.acesso (id, descricao) FROM stdin;
 --
 
 COPY public.avaliacao_produto (id, descricao, nota, pessoa_id, produto_id) FROM stdin;
-1	Teste avalia├º├úo produto Trigger	10	1	1
 \.
 
 
@@ -736,6 +890,15 @@ COPY public.cup_desc (id, cod_desc, data_validade, valor_porcent_desc, valor_rea
 --
 
 COPY public.endereco (id, bairro, cep, cidade, complemento, numero, rua_logra, tipo_endereco, uf, pessoa_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: flyway_schema_history; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.flyway_schema_history (installed_rank, version, description, type, script, checksum, installed_by, installed_on, execution_time, success) FROM stdin;
+1	1	<< Flyway Baseline >>	BASELINE	<< Flyway Baseline >>	\N	null	2023-08-28 13:34:24.094548	0	t
 \.
 
 
@@ -800,7 +963,6 @@ COPY public.nota_item_produto (id, quantidade, nota_fiscal_compra_id, produto_id
 --
 
 COPY public.pessoa_fisica (id, email, nome, telefone, cpf, data_nascimento) FROM stdin;
-1	webmaster.crio@gmail.com	PEDRO FELLIPE DE SOUZA RIBEIRO	85996500999	01457548399	1983-12-01
 \.
 
 
@@ -817,7 +979,6 @@ COPY public.pessoa_juridica (id, email, nome, telefone, categoria, cnpj, insc_es
 --
 
 COPY public.produto (id, qtd_estoque, qtde_alerta_estoque, alerta_qtde_estoque, altura, ativo, descricao, largura, link_youtube, nome, peso, profundidade, qtde_clique, tipo_unidade, valor_venda) FROM stdin;
-1	1	1	t	10	t	produto teste	50.2	sdsdsdsds	nome prouto teste	50	8.8	50	UN	50.00
 \.
 
 
@@ -857,7 +1018,7 @@ COPY public.vd_cp_loja_virt (id, data_entrega, data_venda, dia_entrega, valor_de
 -- Name: seq_acesso; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.seq_acesso', 8, true);
+SELECT pg_catalog.setval('public.seq_acesso', 40, true);
 
 
 --
@@ -1043,6 +1204,14 @@ ALTER TABLE ONLY public.endereco
 
 
 --
+-- Name: flyway_schema_history flyway_schema_history_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.flyway_schema_history
+    ADD CONSTRAINT flyway_schema_history_pk PRIMARY KEY (installed_rank);
+
+
+--
 -- Name: forma_pagamento forma_pagamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1163,108 +1332,10 @@ ALTER TABLE ONLY public.vd_cp_loja_virt
 
 
 --
--- Name: nota_fiscal_compra validachavepessoa; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: flyway_schema_history_s_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE TRIGGER validachavepessoa BEFORE UPDATE ON public.nota_fiscal_compra FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: usuario validachavepessoa; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoa BEFORE UPDATE ON public.usuario FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: vd_cp_loja_virt validachavepessoa; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoa BEFORE UPDATE ON public.vd_cp_loja_virt FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: nota_fiscal_compra validachavepessoa2; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoa2 BEFORE INSERT ON public.nota_fiscal_compra FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: usuario validachavepessoa2; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoa2 BEFORE INSERT ON public.usuario FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: vd_cp_loja_virt validachavepessoa2; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoa2 BEFORE INSERT ON public.vd_cp_loja_virt FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: avaliacao_produto validachavepessoaavaliacaoproduto; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoaavaliacaoproduto BEFORE UPDATE ON public.avaliacao_produto FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: avaliacao_produto validachavepessoaavaliacaoproduto2; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoaavaliacaoproduto2 BEFORE INSERT ON public.avaliacao_produto FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: conta_receber validachavepessoacontacontareceber2; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoacontacontareceber2 BEFORE INSERT ON public.conta_receber FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: conta_pagar validachavepessoacontapagar; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoacontapagar BEFORE UPDATE ON public.conta_pagar FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: conta_pagar validachavepessoacontapagar2; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoacontapagar2 BEFORE INSERT ON public.conta_pagar FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: conta_pagar validachavepessoacontapagarpessoa_forn_id; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoacontapagarpessoa_forn_id BEFORE UPDATE ON public.conta_pagar FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa2();
-
-
---
--- Name: conta_pagar validachavepessoacontapagarpessoa_forn_id2; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoacontapagarpessoa_forn_id2 BEFORE INSERT ON public.conta_pagar FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa2();
-
-
---
--- Name: conta_receber validachavepessoacontareceber; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoacontareceber BEFORE UPDATE ON public.conta_receber FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
-
-
---
--- Name: endereco validachavepessoaendereco2; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER validachavepessoaendereco2 BEFORE INSERT ON public.endereco FOR EACH ROW EXECUTE FUNCTION public.validachavepessoa();
+CREATE INDEX flyway_schema_history_s_idx ON public.flyway_schema_history USING btree (success);
 
 
 --
@@ -1400,12 +1471,61 @@ ALTER TABLE ONLY public.item_venda_loja
 --
 
 --
--- Database "pegasus" dump
+-- Database "postgres" dump
 --
 
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.2 (Debian 15.2-1.pgdg110+1)
--- Dumped by pg_dump version 15.2 (Debian 15.2-1.pgdg110+1)
+-- Dumped from database version 15.3 (Debian 15.3-1.pgdg110+1)
+-- Dumped by pg_dump version 15.3 (Debian 15.3-1.pgdg110+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+DROP DATABASE postgres;
+--
+-- Name: postgres; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE postgres WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+
+
+ALTER DATABASE postgres OWNER TO postgres;
+
+\connect postgres
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: DATABASE postgres; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE postgres IS 'default administrative connection database';
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- PostgreSQL database cluster dump complete
+--

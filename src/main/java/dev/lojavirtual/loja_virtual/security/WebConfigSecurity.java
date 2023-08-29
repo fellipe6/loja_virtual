@@ -11,14 +11,14 @@ import javax.servlet.http.HttpSessionListener;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebConfigSecurity extends WebSecurityConfigurerAdapter implements HttpSessionListener {
 
     @Override
-    public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers(HttpMethod.GET,"/salvarAcesso","/deleteAcesso")
-                .antMatchers(HttpMethod.POST,"/salvarAcesso","/deleteAcesso");
-                //ignorando url no momento para nao autenticar!
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.GET, "/salvarAcesso", "/deleteAcesso")
+                .antMatchers(HttpMethod.POST, "/salvarAcesso", "/deleteAcesso");
+        /*Ingnorando URL no momento para nao autenticar*/
     }
 
 }

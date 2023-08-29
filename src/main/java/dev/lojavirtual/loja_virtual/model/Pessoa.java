@@ -21,8 +21,11 @@ public abstract class Pessoa {
     @Column(nullable = false)
     private String telefone;
 
+    @Column
+    private String tipoPessoa;
     @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Endereco> enderecos = new ArrayList<Endereco>();
+
 
 
     public Long getId() {
@@ -59,6 +62,14 @@ public abstract class Pessoa {
 
     public List<Endereco> getEnderecos() {
         return enderecos;
+    }
+
+    public String getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(String tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
     }
 
     public void setEnderecos(List<Endereco> enderecos) {
