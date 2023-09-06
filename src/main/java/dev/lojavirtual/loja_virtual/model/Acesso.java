@@ -23,7 +23,7 @@ public class Acesso implements GrantedAuthority {
     @Column(nullable = false)
     private String descricao; /* Acesso ex: ROLE_ADMIN ou ROLE_SECRETARIO */
 
-    @JsonIgnore
+
     @Override
     public String getAuthority() {
         return this.descricao;

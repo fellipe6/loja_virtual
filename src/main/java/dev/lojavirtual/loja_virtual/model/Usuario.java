@@ -2,7 +2,6 @@ package dev.lojavirtual.loja_virtual.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -28,11 +27,13 @@ public class Usuario implements UserDetails {
     @Temporal(TemporalType.DATE)
     private Date dataAtualSenha;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name="usuario_acesso",uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id","acesso_id"},
     name = "unique_acesso_user"),
-    joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id", table = "usuario",unique = false,foreignKey = @ForeignKey(name = "usuario_fk",value = ConstraintMode.CONSTRAINT)),
-    inverseJoinColumns = @JoinColumn(name = "acesso_id",unique = false,referencedColumnName = "id", table = "acesso",foreignKey = @ForeignKey(name="acesso_fk",value = ConstraintMode.CONSTRAINT)))
+    joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id", table = "usuario",
+            unique = false,foreignKey = @ForeignKey(name = "usuario_fk",value = ConstraintMode.CONSTRAINT)),
+    inverseJoinColumns = @JoinColumn(name = "acesso_id",
+            unique = false,referencedColumnName = "id", table = "acesso",foreignKey = @ForeignKey(name="acesso_fk",value = ConstraintMode.CONSTRAINT)))
     private List<Acesso> acessos;
 
     @ManyToOne(targetEntity = Pessoa.class)
@@ -42,8 +43,8 @@ public class Usuario implements UserDetails {
     /*Autoridades  são acessos, ou ex: ROLE_ADMIN*/
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+        return acessos;
+    }//Acessos
 
     @Override
     public String getPassword() {
@@ -82,4 +83,44 @@ public class Usuario implements UserDetails {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
+
+   public String getLogin() {
+      return login;
+   }
+
+   public void setLogin(String login) {
+      this.login = login;
+   }
+
+   public Long getId() {
+      return id;
+   }
+
+   public void setId(Long id) {
+      this.id = id;
+   }
+
+   public String getSenha() {
+      return senha;
+   }
+
+   public void setSenha(String senha) {
+      this.senha = senha;
+   }
+
+   public Date getDataAtualSenha() {
+      return dataAtualSenha;
+   }
+
+   public void setDataAtualSenha(Date dataAtualSenha) {
+      this.dataAtualSenha = dataAtualSenha;
+   }
+
+   public List<Acesso> getAcessos() {
+      return acessos;
+   }
+
+   public void setAcessos(List<Acesso> acessos) {
+      this.acessos = acessos;
+   }
 }

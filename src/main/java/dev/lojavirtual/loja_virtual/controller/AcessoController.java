@@ -9,10 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @Controller
 @RestController
+//@CrossOrigin(origins = "https://www.criosis.com.br")//libera apenas esse dominio para acesso a api
 public class AcessoController {
 
     @Autowired
@@ -40,6 +42,8 @@ public class AcessoController {
         return new ResponseEntity("Acesso Removido", HttpStatus.OK);
     }
 
+
+    //@Secured({"ROLE_GERENTE","ROLE_ADMIN"})//Da permissão apenas para usuário gerente e admin de deletar acesso
     @ResponseBody
     @DeleteMapping(value = "/deleteAcessoPorId/{id}")
     public ResponseEntity<?> deleteAcessoPorId(@PathVariable("id") Long id) {
@@ -58,7 +62,6 @@ public class AcessoController {
 
         return new ResponseEntity<Acesso>(acesso, HttpStatus.OK);
     }
-
 
     @ResponseBody
     @GetMapping(value = "/buscarPorDesc/{desc}")
