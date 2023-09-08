@@ -201,7 +201,7 @@ public class LojaVirtualApplicationTests extends TestCase {
 
 
 	@Test
-	public void testCadastraAcesso() {
+	public void testCadastraAcesso() throws ExceptionLJJava {
 
 		Acesso acesso = new Acesso();
 
