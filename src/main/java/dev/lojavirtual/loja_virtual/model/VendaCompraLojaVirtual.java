@@ -42,6 +42,11 @@ public class VendaCompraLojaVirtual implements Serializable {
     @JoinColumn(name = "endereco_cobranca_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "endereco_cobranca_fk"))
     private Endereco enderecoCobranca;
 
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+    private Pessoa empresa;
+
     @Column(nullable = false)
     private BigDecimal valorTotal;
 
@@ -72,6 +77,7 @@ public class VendaCompraLojaVirtual implements Serializable {
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataEntrega;
+
 
     public Long getId() {
         return id;
@@ -175,6 +181,14 @@ public class VendaCompraLojaVirtual implements Serializable {
 
     public void setDataEntrega(Date dataEntrega) {
         this.dataEntrega = dataEntrega;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

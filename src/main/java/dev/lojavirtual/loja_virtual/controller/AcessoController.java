@@ -24,16 +24,19 @@ public class AcessoController {
     @Autowired
     private AcessoRepository acessoRepository;
 
+
     @ResponseBody /*Poder dar um retorno da API*/
     @PostMapping(value = "/salvarAcesso") /*Mapeando a url para receber JSON*/
     public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) throws ExceptionLJJava { /*Recebe o JSON e converte pra Objeto*/
 
-        if(acesso.getId() == null){
+        if (acesso.getId() == null) {
             List<Acesso> acessos = acessoRepository.buscarAcessoDesc(acesso.getDescricao().toUpperCase());
-            if(!acessos.isEmpty()){
-                throw new ExceptionLJJava("Já existe acesso com a descrição: " + acesso.getDescricao());
+
+            if (!acessos.isEmpty()) {
+                throw new ExceptionLJJava("Já existe Acesso com a descrição: " + acesso.getDescricao());
             }
         }
+
 
         Acesso acessoSalvo = acessoService.save(acesso);
 

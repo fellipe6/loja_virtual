@@ -1,6 +1,7 @@
 package dev.lojavirtual.loja_virtual;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import java.util.List;
 
 import dev.lojavirtual.loja_virtual.controller.AcessoController;
@@ -47,7 +48,7 @@ public class LojaVirtualApplicationTests extends TestCase {
 
 		Acesso acesso = new Acesso();
 
-		acesso.setDescricao("ROLE_ADMIN");
+		acesso.setDescricao("ROLE_ADMIN"  + Calendar.getInstance().getTimeInMillis());
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		ResultActions retornoApi = mockMvc
@@ -203,9 +204,11 @@ public class LojaVirtualApplicationTests extends TestCase {
 	@Test
 	public void testCadastraAcesso() throws ExceptionLJJava {
 
+		String descacesso = "ROLE_ADMIN" + Calendar.getInstance().getTimeInMillis();
+
 		Acesso acesso = new Acesso();
 
-		acesso.setDescricao("ROLE_ADMIN");
+		acesso.setDescricao(descacesso);
 
 		assertEquals(true, acesso.getId() == null);
 
@@ -215,7 +218,7 @@ public class LojaVirtualApplicationTests extends TestCase {
 		assertEquals(true, acesso.getId() > 0);
 
 		/*Validar dados salvos da forma correta*/
-		assertEquals("ROLE_ADMIN", acesso.getDescricao());
+		assertEquals(descacesso, acesso.getDescricao());
 
 		/*Teste de carregamento*/
 
@@ -252,5 +255,6 @@ public class LojaVirtualApplicationTests extends TestCase {
 
 
 	}
+
 
 }

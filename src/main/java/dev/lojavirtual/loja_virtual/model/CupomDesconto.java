@@ -25,6 +25,11 @@ public class CupomDesconto implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataValidade;
 
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+    private Pessoa empresa;
+
     public Long getId() {
         return id;
     }
@@ -63,6 +68,14 @@ public class CupomDesconto implements Serializable {
 
     public void setDataValidade(Date dataValidade) {
         this.dataValidade = dataValidade;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

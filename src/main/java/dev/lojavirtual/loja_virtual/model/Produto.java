@@ -3,13 +3,7 @@ package dev.lojavirtual.loja_virtual.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "produto")
@@ -32,6 +26,11 @@ public class Produto implements Serializable {
 
     @Column(columnDefinition = "text", length = 2000 ,nullable = false)
     private String descricao;
+
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+    private Pessoa empresa;
 
     /** Nota item nota produto - ASSOCIAR **/
 
@@ -179,6 +178,14 @@ public class Produto implements Serializable {
 
     public void setQtdeClique(Integer qtdeClique) {
         this.qtdeClique = qtdeClique;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 
     @Override
