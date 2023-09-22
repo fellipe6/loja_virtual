@@ -3,14 +3,14 @@ package dev.lojavirtual.loja_virtual;
 import dev.lojavirtual.loja_virtual.controller.PessoaController;
 import dev.lojavirtual.loja_virtual.enums.TipoEndereco;
 import dev.lojavirtual.loja_virtual.model.Endereco;
-import dev.lojavirtual.loja_virtual.model.PessoaFisica;
+
 import dev.lojavirtual.loja_virtual.model.PessoaJuridica;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.ResponseEntity;
+
 
 import java.util.Calendar;
 
