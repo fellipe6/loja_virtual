@@ -1,5 +1,6 @@
 package dev.lojavirtual.loja_virtual.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.lojavirtual.loja_virtual.enums.TipoEndereco;
 
 import javax.persistence.*;
@@ -31,13 +32,16 @@ public class Endereco implements Serializable {
     @Column(nullable = false)
     private String cidade;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoEndereco tipoEndereco;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = Pessoa.class)
     @JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
     private Pessoa pessoa;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = Pessoa.class)
     @JoinColumn(name = "empresa_id", nullable = false,
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
