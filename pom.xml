@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
-
+<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -86,7 +86,7 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-	nao sabe onde estão
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -98,7 +98,7 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>5.0.7.RELEASE</version>
 		</dependency>
-    </dependencies>
+</dependencies>
 
 	<build>
 		<plugins>
