@@ -30,6 +30,9 @@ public class PessoaController {
         if(pessoaJuridica.getId() == null && pessoaRepository.existeCnpjCadastrado(pessoaJuridica.getCnpj())!=null){
             throw new ExceptionLJJava("Pessoa juridica já cadastrada CNPJ:" + pessoaJuridica.getCnpj());
         }
+        if(pessoaJuridica.getId() == null && pessoaRepository.existeInscEstadualCadastro(pessoaJuridica.getInscEstadual())!=null){
+            throw new ExceptionLJJava("Pessoa juridica já cadastrada com essa inscrição estadual:" + pessoaJuridica.getInscEstadual());
+        }
         pessoaJuridica = pessoaUserService.salvarPessoaJuridica(pessoaJuridica);
         return new ResponseEntity<PessoaJuridica>(pessoaJuridica, HttpStatus.OK);
     }
